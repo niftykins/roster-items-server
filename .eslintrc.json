@@ -1,0 +1,47 @@
+{
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"sourceType": "module"
+	},
+
+	"extends": "airbnb-base",
+
+	"env": {
+		"node": true,
+		"es6": true
+	},
+	"rules": {
+		"no-tabs": "off",
+		"no-console": "off",
+		"comma-dangle": ["error", "never"],
+		"object-curly-spacing": ["error", "never"],
+		// "consistent-return": "off",
+		// "arrow-body-style": "off",
+		"arrow-parens": ["error", "always"],
+		"space-before-function-paren": ["error", "never"],
+		"no-cond-assign": ["error", "except-parens"],
+		"no-mixed-operators": ["error", {"allowSamePrecedence": true}],
+
+		// "max-len": ["off", 120, 2, {
+		//   "ignoreUrls": true,
+		//   "ignoreComments": false,
+		//   "ignoreRegExpLiterals": true,
+		//   "ignoreStrings": true,
+		//   "ignoreTemplateLiterals": true
+		// }],
+
+		// meteor has a lot of these
+		"no-underscore-dangle": "off",
+
+		// ignore for now
+		"indent": ["error", "tab", {"SwitchCase": 1}],
+
+		// import
+		// "import/no-extraneous-dependencies": "off",
+		"import/prefer-default-export": "off",
+		"import/newline-after-import": "off",
+		// "import/no-absolute-path": "off",
+		// "import/extensions": "off",
+		"import/first": "off"
+	}
+}
