@@ -16,7 +16,7 @@
 		"comma-dangle": ["error", "never"],
 		"object-curly-spacing": ["error", "never"],
 		// "consistent-return": "off",
-		// "arrow-body-style": "off",
+		"arrow-body-style": "off",
 		"arrow-parens": ["error", "always"],
 		"space-before-function-paren": ["error", "never"],
 		"no-cond-assign": ["error", "except-parens"],

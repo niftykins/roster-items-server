@@ -1,12 +1,12 @@
 import session from 'express-session';
-import jsonSessionStore from 'express-session-json';
+import knexSessionStore from 'connect-session-knex';
 import passport from 'passport';
 import {Strategy as BlizzardStrategy} from 'passport-bnet';
 
-const store = new (jsonSessionStore(session))({
-	filename: '.sessions',
-	path: __dirname
-});
+import knex from './knex';
+import Users from './models/users';
+
+const store = new (knexSessionStore(session))({knex});
 
 function makeClientUrl(path = '/') {
 	return `${process.env.UI_URL}${path}`;
@@ -44,11 +44,29 @@ const bnetOptions = {
 	region: 'us'
 };
 
-passport.use(new BlizzardStrategy(bnetOptions, (accessToken, refreshToken, profile, done) => {
-	console.log('User:', JSON.stringify(profile, null, 3));
+async function bnetStrategyCallback(accessToken, refreshToken, profile, done) {
+	try {
+		const userId = await Users.upsertUser(profile);
+		console.log('end', userId);
 
-	done(null, profile);
-}));
+		done(null, userId);
+	} catch (e) {
+		console.error(e);
 
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((obj, done) => done(null, obj));
+		// XXX this doesn't actually indicate an error, just that the
+		// auth failed - need to figure out what to do when there's
+		// actually an error because just doing `done(e)` doesn't work
+		done(null, false);
+	}
+}
+
+passport.use(new BlizzardStrategy(bnetOptions, bnetStrategyCallback));
+
+passport.serializeUser((userId, done) => done(null, userId));
+passport.deserializeUser(async (userId, done) => {
+	const user = await Users.findUserById(userId);
+
+	console.log('deserializeUser', user);
+
+	done(null, user);
+});
