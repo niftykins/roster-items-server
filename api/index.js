@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(cors({
 	allowedHeaders: ['Accept', 'Content-Type', 'Origin', 'X-CSRF'],
 	methods: ['GET', 'PUT', 'POST', 'DELETE'],
-	origin: [/guildsy\.com.*/],
+	origin: [/guildsy\.com.*/, /guildsy\.io.*/],
 	credentials: true,
 	maxAge: 3600
 }));
