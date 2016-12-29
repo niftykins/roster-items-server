@@ -1,7 +1,8 @@
-##### installing
+##### running
 
 ```
 yarn
+yarn run pg-start
 yarn run migrate
 yarn run start
 ```

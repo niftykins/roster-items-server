@@ -7,7 +7,8 @@
     "lint": "eslint api migrations seeds",
     "test": "mocha --compilers js:babel-core/register --reporter spec --full-trace 'api/**/*.test.js' && npm run lint",
     "seed": "knex seed:run",
-    "migrate": "knex migrate:latest"
+    "migrate": "knex migrate:latest",
+    "pg-start": "pg_ctl -D /usr/local/var/postgres start"
   },
   "private": true,
   "devDependencies": {
@@ -45,6 +46,7 @@
     "passport": "0.3.2",
     "passport-bnet": "1.2.1",
     "passport-github": "1.1.0",
+    "pg": "6.1.2",
     "reddit-score": "0.0.2",
     "request-promise": "4.1.1",
     "sqlite3": "3.1.8",

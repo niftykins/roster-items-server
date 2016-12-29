@@ -15,7 +15,6 @@ class Users {
 
 	async upsertUser({id: accountId, battletag, token}) {
 		const user = await this.findUserByAccountId(accountId);
-		console.log('user:', user);
 
 		// there's already a user so just update the token
 		if (user) {
@@ -27,6 +26,7 @@ class Users {
 		}
 
 		return knex(this.table)
+			.returning('id')
 			.insert({
 				accountId,
 				battletag,
