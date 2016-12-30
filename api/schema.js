@@ -2,8 +2,13 @@ import {merge} from 'lodash';
 import {makeExecutableSchema} from 'graphql-tools';
 
 const rootSchema = `
+	type User {
+		id: String!
+		battletag: String!
+	}
+
 	type Query {
-		stuff: Int
+		currentUser: User
 	}
 
 	schema {
@@ -13,7 +18,9 @@ const rootSchema = `
 
 const rootResolvers = {
 	Query: {
-
+		currentUser(root, args, context) {
+			return context.user || null;
+		}
 	}
 };
 

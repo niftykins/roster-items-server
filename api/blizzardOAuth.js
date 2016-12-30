@@ -28,7 +28,7 @@ export default function setupBlizzardOAuth(app) {
 	app.get('/auth/bnet/callback',
 		passport.authenticate('bnet', {
 			failureRedirect: makeClientUrl('/sign-in?error=1'),
-			successRedirect: makeClientUrl('/sign-in')
+			successRedirect: makeClientUrl('/')
 		}));
 
 	app.get('/auth/logout', (req, res) => {
@@ -65,7 +65,7 @@ passport.serializeUser((userId, done) => done(null, userId));
 passport.deserializeUser(async (userId, done) => {
 	try {
 		let user = await Users.findUserById(userId);
-		console.log('deserializeUser', user);
+		console.log('deserializeUser', user && user.id);
 
 		// false removes their session entry
 		if (!user) user = false;

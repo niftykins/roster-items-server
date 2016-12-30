@@ -34,13 +34,15 @@ app.use('/graphql', bodyParser.json(), graphqlExpress((req) => {
 		throw new Error('Query too large');
 	}
 
-	// let user;
 	console.log('gql', req.user, query);
 
 	return {
-		context: {},
 		debug: true,
-		schema
+		schema,
+
+		context: {
+			user: req.user
+		}
 	};
 }));
 
