@@ -12,6 +12,8 @@ const schema = `
 		id: ID!
 		wowId: String!
 		name: String!
+		created: String!
+		updated: String!
 		bosses: [Boss!]!
 	}
 
