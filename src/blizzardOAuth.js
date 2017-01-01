@@ -46,7 +46,7 @@ const bnetOptions = {
 
 async function bnetStrategyCallback(accessToken, refreshToken, profile, done) {
 	try {
-		const userId = await Users.upsertUser(profile);
+		const userId = await Users.upsert(profile);
 
 		done(null, userId);
 	} catch (e) {
@@ -64,7 +64,7 @@ passport.use(new BlizzardStrategy(bnetOptions, bnetStrategyCallback));
 passport.serializeUser((userId, done) => done(null, userId));
 passport.deserializeUser(async (userId, done) => {
 	try {
-		let user = await Users.findUserById(userId);
+		let user = await Users.findById(userId);
 		console.log('deserializeUser', user && user.id);
 
 		// false removes their session entry

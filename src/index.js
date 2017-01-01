@@ -6,7 +6,7 @@ import cors from 'cors';
 // run this early as other things use environment variables
 import './dotenv';
 
-import schema from './schema';
+import schema from './graphql/schema';
 
 import setupBlizzardOAuth from './blizzardOAuth';
 
