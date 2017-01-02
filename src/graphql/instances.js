@@ -1,6 +1,10 @@
-import CODES from '../constants/codes';
+import {
+	findAllInstances,
+	findInstance,
 
-import Instances from '../models/instances';
+	createInstance,
+	updateInstance
+} from '../controllers/instances';
 
 const schema = `
 	type Boss {
@@ -32,48 +36,13 @@ const schema = `
 
 const resolvers = {
 	Query: {
-		instances() {
-			return Instances.findAll();
-		},
-
-		instance(root, {id}) {
-			return Instances.findById(id);
-		}
+		instances: findAllInstances,
+		instance: findInstance
 	},
 
 	Mutation: {
-		async createInstance(root, {instance}, context) {
-			if (!context.user) {
-				throw new Error('Must be logged in to create an instance');
-			}
-
-			try {
-				return Instances.insert(instance);
-			} catch (e) {
-				if (e.code && e.code === CODES.UNIQUE_VIOLATION) {
-					throw new Error('Instance with that ID already exists');
-				}
-
-				throw new Error('Well something went badly');
-			}
-		},
-
-		async updateInstance(root, {id, instance}, context) {
-			if (!context.user) {
-				throw new Error('Must be logged in to update an instance');
-			}
-
-			try {
-				return Instances.update(id, instance);
-			} catch (e) {
-				console.log(e);
-				if (e.code && e.code === CODES.UNIQUE_VIOLATION) {
-					throw new Error('Instance with that ID already exists');
-				}
-
-				throw new Error('Well something went badly');
-			}
-		}
+		createInstance,
+		updateInstance
 	}
 };
 
