@@ -55,8 +55,7 @@ setupBlizzardOAuth(app);
 setupSocket(server, sessionParser);
 
 app.get('/test', (req, res) => {
-	console.log(req.user);
+	console.log(req.headers.cookie);
 
 	res.json({ok: true});
 });
-

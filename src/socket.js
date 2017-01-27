@@ -1,22 +1,20 @@
 import {Server as SocketServer} from 'ws';
 
 export default function setupSocket(server, sessionParser) {
+	// populates the session data on the upgradeReq
 	const verifyClient = (info, done) => {
-		sessionParser(info.req, {}, () => {
-			console.log('VERIFY', info.req.session, info.req.user);
-
-			done(true);
-		});
+		sessionParser(info.req, {}, () => done(true));
 	};
 
 	const ws = new SocketServer({
 		perMessageDeflate: false,
+		path: '/ws',
+
 		verifyClient,
 		server
 	});
 
 	ws.on('connection', (socket) => {
-		console.log('Client connected', socket.upgradeReq.session);
-		socket.on('close', () => console.log('Client disconnected'));
+		console.log('connection', socket.upgradeReq.session.passport);
 	});
 }

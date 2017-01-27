@@ -29,6 +29,7 @@ const bnetOptions = {
 	callbackURL: `${process.env.API_URL}/auth/bnet/callback`,
 	clientSecret: process.env.BNET_SECRET,
 	clientID: process.env.BNET_ID,
+	scope: ['wow.profile'],
 	region: 'us'
 };
 
