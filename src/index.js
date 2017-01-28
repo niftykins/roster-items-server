@@ -11,6 +11,9 @@ import './dotenv';
 
 import knex from './knex';
 
+// add all the controllers
+import './controllers';
+
 import setupBlizzardOAuth from './blizzardOAuth';
 import setupSocket from './socket';
 

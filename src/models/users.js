@@ -1,4 +1,9 @@
+import pick from 'lodash/pick';
+
 import knex from '../knex';
+
+const publicFields = ['id', 'accountId', 'battletag'];
+const selfFields = [...publicFields];
 
 class Users {
 	table = 'users'
@@ -33,6 +38,17 @@ class Users {
 				token
 			})
 			.then(([r]) => r);
+	}
+
+
+	// transformation helpers
+
+	// transformToPublic(user) {
+	// 	return pick(user, publicFields);
+	// }
+
+	transformToSelf(user) {
+		return pick(user, selfFields);
 	}
 }
 
