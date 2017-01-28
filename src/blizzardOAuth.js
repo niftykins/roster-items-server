@@ -1,7 +1,10 @@
+// import querystring from 'querystring';
 import passport from 'passport';
 import {Strategy as BlizzardStrategy} from 'passport-bnet';
 
 import Users from './models/users';
+
+// const BNET_OAUTH_URL = 'https://us.battle.net/oauth';
 
 function makeClientUrl(path = '/') {
 	return `${process.env.UI_URL}${path}`;
@@ -23,6 +26,49 @@ export default function setupBlizzardOAuth(app) {
 		req.logout();
 		res.json({ok: true});
 	});
+
+	// app.get('/auth2/bnet', (req, res) => {
+	// 	const qs = querystring.stringify({
+	// 		redirect_uri: `${process.env.API_URL}/auth2/bnet/auth`,
+	// 		client_id: process.env.BNET_ID,
+	// 		response_type: 'code',
+	// 		scope: 'wow.profile sc2.profile',
+	// 		state: 'batman'
+	// 	});
+
+	// 	const url = `${BNET_OAUTH_URL}/authorize?${qs}`;
+	// 	console.log('url', url);
+
+	// 	res.redirect(302, url);
+	// });
+
+	// app.get('/auth2/bnet/auth', (req, res) => {
+	// 	console.log(req.query);
+	// 	// XXX check req.query.state
+
+	// 	if (req.query.error) {
+	// 		console.log('ERROR');
+	// 		res.end();
+	// 		return;
+	// 	}
+
+	// 	const qs = querystring.stringify({
+	// 		redirect_uri: `${process.env.API_URL}/auth2/bnet/auth`,
+	// 		scope: 'wow.profile',
+	// 		grant_type: 'authorization_code',
+	// 		code: req.query.code,
+	// 		client_id: process.env.BNET_ID,
+	// 		client_secret: process.env.BNET_SECRET
+	// 	});
+
+	// 	fetch(`${BNET_OAUTH_URL}/token?${qs}`, {
+	// 		method: 'POST',
+	// 	})
+	// 		.then((r) => r.json())
+	// 		.then((r) => console.log(r));
+
+	// 	res.end();
+	// });
 }
 
 const bnetOptions = {
