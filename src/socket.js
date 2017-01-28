@@ -58,7 +58,12 @@ function createMessageHandler(socket) {
 
 			reply(null, data);
 		} catch (e) {
-			// XXX handle sending actual error message
+			if (e.isApiError) {
+				reply(e.message);
+				return;
+			}
+
+			console.log(e);
 			reply('Internal server error');
 		}
 	};
