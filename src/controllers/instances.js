@@ -1,4 +1,5 @@
-import {addHandlers} from '../socket';
+import {addFeedHandler} from '../changefeed';
+import {addSocketHandlers} from '../socket';
 
 import CODES from '../constants/codes';
 import RPC from '../constants/rpc';
@@ -39,7 +40,17 @@ async function createInstance(raw, context) {
 	}
 }
 
-addHandlers({
+addSocketHandlers({
 	[RPC.INSTANCES_FETCH]: fetchInstances,
 	[RPC.INSTANCE_CREATE]: createInstance
 });
+
+
+// change feed
+async function instanceFeedHandler({newRecord, oldRecord}) {
+	const r = newRecord || oldRecord;
+
+	return Instances.transform(r);
+}
+
+addFeedHandler(Instances.table, instanceFeedHandler);

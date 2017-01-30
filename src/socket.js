@@ -2,14 +2,31 @@ import {Server as SocketServer} from 'ws';
 
 import Users from './models/users';
 
+let ws;
 
-// map of event->handlers for socket calls
+// send a payload to all connected clients
+export function notifyAll(payload) {
+	const p = JSON.stringify(payload);
+
+	ws.clients.forEach((socket) => {
+		socket.send(p, (err) => {
+			if (err) console.error('[ERROR] failed to send:', err);
+		});
+	});
+}
+
+
+// map of event->handler for socket calls
 const handlers = {};
 
 // allow controllers to register event handlers themselves
-export function addHandlers(obj) {
-	Object.keys(obj).forEach((key) => {
-		handlers[key] = obj[key];
+export function addSocketHandlers(fns) {
+	Object.keys(fns).forEach((event) => {
+		if (handlers[event]) {
+			throw new Error('overwriting socket handler for:', event);
+		}
+
+		handlers[event] = fns[event];
 	});
 }
 
@@ -77,7 +94,7 @@ export default function setupSocket(server, sessionParser) {
 		sessionParser(info.req, {}, () => done(true));
 	};
 
-	const ws = new SocketServer({
+	ws = new SocketServer({
 		perMessageDeflate: false,
 		clientTracking: true,
 		path: '/ws',

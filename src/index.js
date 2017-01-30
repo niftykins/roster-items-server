@@ -5,7 +5,6 @@ import cors from 'cors';
 import session from 'express-session';
 import knexSessionStore from 'connect-session-knex';
 
-
 // run this early as other things use environment variables
 import './dotenv';
 
@@ -14,8 +13,12 @@ import knex from './knex';
 // add all the controllers
 import './controllers';
 
+// boot up the changefeed
+import './changefeed';
+
 import setupBlizzardOAuth from './blizzardOAuth';
 import setupSocket from './socket';
+
 
 const PORT = process.env.PORT;
 // const WS_PORT = process.env.WS_PORT;
@@ -49,16 +52,17 @@ app.use(cors({
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-
-server.listen(PORT, () => {
-	console.log(`API server is now running on port ${PORT}`);
-});
-
-setupBlizzardOAuth(app);
-setupSocket(server, sessionParser);
-
 app.get('/test', (req, res) => {
 	console.log(req.headers.cookie);
 
 	res.json({ok: true});
 });
+
+server.listen(PORT, () => {
+	console.log(`API server is now running on port ${PORT}`);
+});
+
+
+// set up all the other handlers
+setupBlizzardOAuth(app);
+setupSocket(server, sessionParser);

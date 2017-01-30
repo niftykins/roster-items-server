@@ -1,4 +1,4 @@
-import {addHandlers} from '../socket';
+import {addSocketHandlers} from '../socket';
 
 import RPC from '../constants/rpc';
 
@@ -9,6 +9,6 @@ async function fetchUser(data, context) {
 	return Users.transformToSelf(context.user);
 }
 
-addHandlers({
+addSocketHandlers({
 	[RPC.USER_FETCH]: fetchUser
 });
