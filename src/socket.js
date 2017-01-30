@@ -7,8 +7,10 @@ import Users from './models/users';
 const handlers = {};
 
 // allow controllers to register event handlers themselves
-export function addHandler(event, handler) {
-	handlers[event] = handler;
+export function addHandlers(obj) {
+	Object.keys(obj).forEach((key) => {
+		handlers[key] = obj[key];
+	});
 }
 
 
