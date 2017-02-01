@@ -22,7 +22,7 @@ class Instances {
 				wowheadBonuses: data.wowheadBonuses,
 				bosses: data.bosses,
 
-				release: data.release,
+				released: data.released,
 				wowId: data.wowId,
 				name: data.name
 			})
@@ -37,7 +37,7 @@ class Instances {
 				wowheadBonuses: data.wowheadBonuses,
 				bosses: data.bosses,
 
-				release: data.release,
+				released: data.released,
 				wowId: data.wowId,
 				name: data.name
 			})
@@ -50,7 +50,7 @@ class Instances {
 
 			'wowId',
 			'name',
-			'release',
+			'released',
 
 			'bosses',
 			'wowheadBonuses'
@@ -67,7 +67,7 @@ const createSchema = joi.object().keys({
 	wowId: rules.string,
 	name: rules.string,
 
-	release: rules.numberString,
+	released: rules.numberString,
 
 	wowheadBonuses: joi.object()
 		.keys({

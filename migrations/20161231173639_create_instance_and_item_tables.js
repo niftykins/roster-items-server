@@ -9,7 +9,7 @@ export function up(knex, Promise) {
 			table.string('wowId').notNullable().unique();
 			table.string('name').notNullable();
 
-			table.string('release').notNullable();
+			table.string('released').notNullable();
 
 			table.specificType('bosses', 'jsonb[]').notNullable();
 			table.specificType('wowheadBonuses', 'jsonb').notNullable();
