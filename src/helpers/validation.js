@@ -1,6 +1,8 @@
 import joi from 'joi';
 
 export const rules = {
+	id: joi.number().integer().min(1),
+
 	numberString: joi.string()
 		.max(15)
 		.trim()

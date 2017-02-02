@@ -22,6 +22,11 @@ const handlers = {};
 // allow controllers to register event handlers themselves
 export function addSocketHandlers(fns) {
 	Object.keys(fns).forEach((event) => {
+		// it's a string because it's a key :/
+		if (!event || event === 'undefined') {
+			throw new Error(`bad event name: ${event}`);
+		}
+
 		if (handlers[event]) {
 			throw new Error('overwriting socket handler for:', event);
 		}

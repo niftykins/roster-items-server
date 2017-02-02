@@ -5,6 +5,10 @@ import {notifyAll} from './socket';
 const handlers = {};
 
 export function addFeedHandler(table, fn) {
+	if (!table) {
+		throw new Error(`bad table name: ${table}`);
+	}
+
 	if (handlers[table]) {
 		throw new Error('overwriting changefeed handler for:', table);
 	}

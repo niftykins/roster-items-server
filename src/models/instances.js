@@ -26,7 +26,7 @@ class Instances {
 				wowId: data.wowId,
 				name: data.name
 			})
-			.then(([row]) => row);
+			.then(([r]) => r);
 	}
 
 	update(id, data) {
@@ -41,6 +41,14 @@ class Instances {
 				wowId: data.wowId,
 				name: data.name
 			})
+			.then(([r]) => r);
+	}
+
+	delete(id) {
+		return knex(this.table)
+			.where({id})
+			.returning('*')
+			.delete()
 			.then(([r]) => r);
 	}
 
@@ -86,6 +94,22 @@ const createSchema = joi.object().keys({
 		.unique('wowId')
 });
 
+const updateSchema = createSchema.keys({
+	id: rules.id
+});
+
+const deleteSchema = joi.object().keys({
+	id: rules.id
+});
+
 export function validateCreateInput(data) {
 	return validate(createSchema, data);
+}
+
+export function validateUpdateInput(data) {
+	return validate(updateSchema, data);
+}
+
+export function validateDeleteInput(data) {
+	return validate(deleteSchema, data);
 }
