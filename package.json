@@ -7,9 +7,9 @@
     "lint": "eslint src migrations seeds",
     "seed": "knex seed:run",
     "migrate": "knex migrate:latest",
+    "migrate:make": "knex migrate:make --",
     "pg-start": "pg_ctl -D /usr/local/var/postgres start",
-    "pg-stop": "pg_ctl -D /usr/local/var/postgres stop",
-    "create-migration": "knex migrate:make --"
+    "pg-stop": "pg_ctl -D /usr/local/var/postgres stop"
   },
   "private": true,
   "devDependencies": {
