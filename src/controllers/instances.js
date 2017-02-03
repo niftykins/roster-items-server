@@ -6,6 +6,12 @@ import RPC from '../constants/rpc';
 
 import ApiError from '../helpers/ApiError';
 
+import {
+	requireAuth,
+	requireValidation,
+	requireResult
+} from './middleware';
+
 import Instances, {
 	validateCreateInput,
 	validateUpdateInput,
@@ -20,77 +26,37 @@ async function fetchInstances() {
 }
 
 async function createInstance(raw, context) {
-	if (!context.user) {
-		throw new ApiError('Must be logged in to do that');
-	}
-
-	const valid = validateCreateInput(raw);
-	if (valid.error) {
-		throw new ApiError('Data did not pass validation');
-	}
+	requireAuth(context);
+	const value = requireValidation(validateCreateInput, raw);
 
 	try {
-		return Instances.insert(valid.value);
+		return Instances.insert(value);
 	} catch (e) {
-		console.log(e);
-
 		if (e.code && e.code === CODES.UNIQUE_VIOLATION) {
 			throw new ApiError('An instance with that ID already exists');
 		}
 
-		throw new Error(e);
+		throw e;
 	}
 }
 
 async function updateInstance(raw, context) {
-	if (!context.user) {
-		throw new ApiError('Must be logged in to do that');
-	}
+	requireAuth(context);
+	const value = requireValidation(validateUpdateInput, raw);
 
-	const valid = validateUpdateInput(raw);
-	if (valid.error) {
-		throw new ApiError('Data did not pass validation');
-	}
-
-	let result;
-	try {
-		const {id, ...data} = valid.value;
-		result = await Instances.update(id, data);
-	} catch (e) {
-		console.log(e);
-
-		throw new Error(e);
-	}
-
-	if (!result) {
-		throw new ApiError('Nothing matches the passed ID');
-	}
+	const {id, ...data} = value;
+	const result = await Instances.update(id, data);
+	requireResult(result);
 
 	return result;
 }
 
 async function deleteInstance(raw, context) {
-	if (!context.user) {
-		throw new ApiError('Must be logged in to do that');
-	}
+	requireAuth(context);
+	const value = requireValidation(validateDeleteInput, raw);
 
-	const valid = validateDeleteInput(raw);
-	if (valid.error) {
-		throw new ApiError('Data did not pass validation');
-	}
-
-	let result;
-	try {
-		result = await Instances.delete(valid.value.id);
-	} catch (e) {
-		console.log(e);
-
-		throw new Error(e);
-	}
-
-	if (!result) {
-		throw new ApiError('Nothing matches the passed ID');
-	}
+	const result = await Instances.delete(value.id);
+	requireResult(result);
 
 	return result;
 }
