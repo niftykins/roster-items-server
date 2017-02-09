@@ -24,7 +24,9 @@ class Items {
 				sourceId: data.sourceId,
 				wowId: data.wowId,
 				name: data.name,
-				slot: data.slot
+				slot: data.slot,
+
+				icon: data.icon
 			})
 			.then(([r]) => r);
 	}
@@ -39,7 +41,9 @@ class Items {
 				sourceId: data.sourceId,
 				wowId: data.wowId,
 				name: data.name,
-				slot: data.slot
+				slot: data.slot,
+
+				icon: data.icon
 			})
 			.then(([r]) => r);
 	}

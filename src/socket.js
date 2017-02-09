@@ -66,7 +66,7 @@ function createMessageHandler(socket) {
 			});
 		};
 
-		console.log('on.message --', JSON.stringify(message, null, 3));
+		// console.log('on.message --', JSON.stringify(message, null, 3));
 
 		const handler = handlers[message.fn];
 		if (!handler) {
@@ -78,7 +78,7 @@ function createMessageHandler(socket) {
 
 		try {
 			const data = await handler(message.data, socket.context);
-			console.log('result --', JSON.stringify(data, null, 3));
+			// console.log('result --', JSON.stringify(data, null, 3));
 
 			reply(null, data);
 		} catch (e) {

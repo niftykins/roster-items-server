@@ -13,6 +13,8 @@ export function up(knex) {
 		table.string('sourceId').notNullable();
 		table.string('slot').notNullable();
 
+		table.specificType('icon', 'text').notNullable();
+
 		table.specificType('allowed', 'jsonb').notNullable();
 	})
 		.then(() => knex.raw(createChangefeedTrigger('items')));
