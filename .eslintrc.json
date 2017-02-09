@@ -10,6 +10,11 @@
 		"node": true,
 		"es6": true
 	},
+
+	"globals": {
+		"fetch": true
+	},
+
 	"rules": {
 		"no-tabs": "off",
 		"no-console": "off",

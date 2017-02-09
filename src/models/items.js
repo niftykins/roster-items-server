@@ -100,6 +100,10 @@ const deleteSchema = joi.object().keys({
 	id: rules.id
 });
 
+const autofillSchema = joi.object().keys({
+	url: joi.string()
+});
+
 export function validateCreateInput(data) {
 	return validate(createSchema, data);
 }
@@ -110,4 +114,8 @@ export function validateUpdateInput(data) {
 
 export function validateDeleteInput(data) {
 	return validate(deleteSchema, data);
+}
+
+export function validateAutofillInput(data) {
+	return validate(autofillSchema, data);
 }

@@ -7,6 +7,7 @@ export default {
 	INSTANCE_DELETE: 'instance_delete',
 
 	ITEMS_FETCH: 'items_fetch',
+	ITEM_AUTOFILL: 'item_autofill',
 	ITEM_CREATE: 'item_create',
 	ITEM_UPDATE: 'item_update',
 	ITEM_DELETE: 'item_delete',
