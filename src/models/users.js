@@ -21,9 +21,10 @@ class Users {
 	async upsert({id: accountId, battletag, token}) {
 		const user = await this.findByAccountId(accountId);
 
-		// there's already a user so just update the token
+		// there's already a user so just update the info
 		if (user) {
 			await knex(this.table).where({id: user.id}).update({
+				battletag,
 				token
 			});
 
