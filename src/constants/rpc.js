@@ -1,5 +1,6 @@
 export default {
-	USER_FETCH: 'user_fetch',
+	SELF_FETCH: 'self_fetch',
+	SELF_UPDATE: 'self_update',
 
 	INSTANCES_FETCH: 'instances_fetch',
 	INSTANCE_CREATE: 'instance_create',

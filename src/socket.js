@@ -15,6 +15,10 @@ export function notifyAll(payload) {
 	});
 }
 
+export function getClients() {
+	return [...ws.clients];
+}
+
 
 // map of event->handler for socket calls
 const handlers = {};
