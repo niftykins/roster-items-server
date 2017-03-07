@@ -9,7 +9,11 @@
     "migrate": "knex migrate:latest",
     "migrate:make": "knex migrate:make --",
     "pg-start": "pg_ctl -D /usr/local/var/postgres start",
-    "pg-stop": "pg_ctl -D /usr/local/var/postgres stop"
+    "pg-stop": "pg_ctl -D /usr/local/var/postgres stop",
+    "production": "babel-node src/index.js"
+  },
+  "engines": {
+    "node": "6.6.0"
   },
   "private": true,
   "devDependencies": {
