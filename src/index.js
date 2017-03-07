@@ -31,8 +31,8 @@ const app = express();
 let server;
 if (process.env.USE_SSL_LOCALLY) {
 	const sslOpts = {
-		key: fs.readFileSync('./ssl/server.key'),
-		cert: fs.readFileSync('./ssl/server.crt')
+		key: fs.readFileSync('./ssl/server.key.pem'),
+		cert: fs.readFileSync('./ssl/server.crt.pem')
 	};
 	server = https.createServer(sslOpts, app);
 } else {
