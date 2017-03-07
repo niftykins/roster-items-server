@@ -72,7 +72,7 @@ export default function setupBlizzardOAuth(app) {
 }
 
 const bnetOptions = {
-	callbackURL: `${process.env.API_URL}/auth/bnet/callback`,
+	callbackURL: '/auth/bnet/callback',
 	clientSecret: process.env.BNET_SECRET,
 	clientID: process.env.BNET_ID,
 	scope: ['wow.profile'],

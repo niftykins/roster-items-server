@@ -1,6 +1,8 @@
 import 'isomorphic-fetch';
 
 import http from 'http';
+import https from 'https';
+import fs from 'fs';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -26,7 +28,16 @@ const PORT = process.env.PORT;
 // const WS_PORT = process.env.WS_PORT;
 
 const app = express();
-const server = http.createServer(app);
+let server;
+if (process.env.USE_SSL_LOCALLY) {
+	const sslOpts = {
+		key: fs.readFileSync('./ssl/server.key'),
+		cert: fs.readFileSync('./ssl/server.crt')
+	};
+	server = https.createServer(sslOpts, app);
+} else {
+	server = http.createServer(app);
+}
 
 
 // set up session
@@ -61,7 +72,8 @@ app.get('/test', (req, res) => {
 });
 
 server.listen(PORT, () => {
-	console.log(`API server is now running on port ${PORT}`);
+	const ssl = process.env.USE_SSL_LOCALLY ? ' using SSL' : '';
+	console.log(`API server is now running on port ${PORT}${ssl}`);
 });
 
 
