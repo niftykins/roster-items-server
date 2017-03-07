@@ -13,7 +13,7 @@
     "production": "babel-node src/index.js"
   },
   "engines": {
-    "node": "6.6.0"
+    "node": "6.10.0"
   },
   "private": true,
   "devDependencies": {
