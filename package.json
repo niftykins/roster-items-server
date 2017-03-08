@@ -9,16 +9,16 @@
     "migrate": "knex migrate:latest",
     "migrate:make": "knex migrate:make --",
     "pg-start": "pg_ctl -D /usr/local/var/postgres start",
-    "pg-stop": "pg_ctl -D /usr/local/var/postgres stop"
+    "pg-stop": "pg_ctl -D /usr/local/var/postgres stop",
+    "production": "babel-node src/index.js"
+  },
+  "engines": {
+    "node": "6.10.0",
+    "yarn": "0.21.3",
+    "npm": "3.10.10"
   },
   "private": true,
   "devDependencies": {
-    "babel-cli": "6.23.0",
-    "babel-core": "6.23.1",
-    "babel-eslint": "7.1.1",
-    "babel-preset-es2015": "6.22.0",
-    "babel-preset-react": "6.23.0",
-    "babel-preset-stage-0": "6.22.0",
     "eslint": "3.16.1",
     "eslint-config-airbnb-base": "11.1.0",
     "eslint-plugin-import": "2.2.0",
@@ -26,6 +26,12 @@
     "nodemon": "1.11.0"
   },
   "dependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.22.0",
     "babel-register": "6.23.0",
     "body-parser": "1.16.1",
     "bufferutil": "2.0.1",
