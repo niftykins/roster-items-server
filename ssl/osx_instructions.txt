@@ -1,0 +1,5 @@
+open server.crt.pem with Keychain Access and add it to your login
+
+find the certificate for local.guildsy.io and go to info, change the default action to Always Trust
+
+now the browser will accept it
