@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js --watch src --exec babel-node",
-    "lint": "eslint src migrations seeds",
+    "full-lint": "eslint src migrations seeds",
+    "lint": "yarn run full-lint -- --cache",
     "seed": "knex seed:run",
     "migrate": "knex migrate:latest",
     "migrate:make": "knex migrate:make --",
@@ -47,8 +48,14 @@
     "passport": "0.3.2",
     "passport-bnet": "1.2.1",
     "pg": "6.1.2",
+    "pre-commit": "1.2.2",
     "utf-8-validate": "3.0.1",
     "ws": "2.2.0",
     "xml2json": "0.11.0"
+  },
+  "pre-commit": {
+    "run": [
+      "full-lint"
+    ]
   }
 }
