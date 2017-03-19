@@ -3,7 +3,7 @@ import pick from 'lodash/pick';
 import knex from '../knex';
 
 const publicFields = ['id', 'accountId', 'battletag'];
-const selfFields = [...publicFields];
+const selfFields = [...publicFields, 'isItemsAdmin', 'isItemsSuperAdmin'];
 
 class Users {
 	table = 'users'

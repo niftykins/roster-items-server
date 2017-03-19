@@ -8,6 +8,7 @@ import ApiError from '../helpers/ApiError';
 
 import {
 	requireAuth,
+	requireItemsSuperAdmin,
 	requireValidation,
 	requireResult
 } from './middleware';
@@ -27,6 +28,7 @@ async function fetchButtons() {
 
 async function createButton(raw, context) {
 	requireAuth(context);
+	requireItemsSuperAdmin(context);
 	const value = requireValidation(validateCreateInput, raw);
 
 	try {
@@ -42,6 +44,7 @@ async function createButton(raw, context) {
 
 async function updateButton(raw, context) {
 	requireAuth(context);
+	requireItemsSuperAdmin(context);
 	const value = requireValidation(validateUpdateInput, raw);
 
 	const {id, ...data} = value;
@@ -53,6 +56,7 @@ async function updateButton(raw, context) {
 
 async function deleteButton(raw, context) {
 	requireAuth(context);
+	requireItemsSuperAdmin(context);
 	const value = requireValidation(validateDeleteInput, raw);
 
 	const result = await Buttons.delete(value.id);

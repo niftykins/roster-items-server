@@ -17,8 +17,8 @@ addSocketHandlers({
 });
 
 
-// change feed
-async function itemFeedHandler({newRecord, oldRecord}) {
+// change feed for your own user object only
+async function userFeedHandler({newRecord, oldRecord}) {
 	// we only care about updates
 	if (!newRecord || !oldRecord) return null;
 
@@ -45,4 +45,4 @@ async function itemFeedHandler({newRecord, oldRecord}) {
 	return null;
 }
 
-addFeedHandler(Users.table, itemFeedHandler);
+addFeedHandler(Users.table, userFeedHandler);

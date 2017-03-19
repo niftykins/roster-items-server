@@ -20,3 +20,15 @@ export function requireResult(result) {
 		throw new ApiError('Nothing matches the passed ID');
 	}
 }
+
+export function requireItemsAdmin(context) {
+	if (!context.user || (!context.user.isItemsAdmin && !context.user.isItemsSuperAdmin)) {
+		throw new ApiError('You must be an admin to do that');
+	}
+}
+
+export function requireItemsSuperAdmin(context) {
+	if (!context.user || !context.user.isItemsSuperAdmin) {
+		throw new ApiError('You must be a super admin to do that');
+	}
+}

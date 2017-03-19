@@ -10,6 +10,7 @@ import ApiError from '../helpers/ApiError';
 
 import {
 	requireAuth,
+	requireItemsAdmin,
 	requireValidation,
 	requireResult
 } from './middleware';
@@ -112,6 +113,7 @@ async function fetchItems() {
 
 async function createItem(raw, context) {
 	requireAuth(context);
+	requireItemsAdmin(context);
 	const value = requireValidation(validateCreateInput, raw);
 
 	try {
@@ -130,6 +132,7 @@ async function createItem(raw, context) {
 
 async function updateItem(raw, context) {
 	requireAuth(context);
+	requireItemsAdmin(context);
 	const value = requireValidation(validateUpdateInput, raw);
 
 	const {id, ...data} = value;
@@ -145,6 +148,7 @@ async function updateItem(raw, context) {
 
 async function deleteItem(raw, context) {
 	requireAuth(context);
+	requireItemsAdmin(context);
 	const value = requireValidation(validateDeleteInput, raw);
 
 	const result = await Items.delete(value.id);
@@ -155,6 +159,7 @@ async function deleteItem(raw, context) {
 
 async function autofillItem(raw, context) {
 	requireAuth(context);
+	requireItemsAdmin(context);
 	const value = requireValidation(validateAutofillInput, raw);
 
 	const urlRegex = /^https?:\/\/(ptr|www).wowhead.com\/item=(\d+).*/;
