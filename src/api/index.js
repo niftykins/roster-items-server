@@ -3,6 +3,7 @@ import 'babel-polyfill';
 import 'isomorphic-fetch';
 
 import path from 'path';
+import http from 'http';
 import https from 'https';
 import fs from 'fs';
 import express from 'express';
@@ -29,11 +30,17 @@ const PORT = process.env.PORT;
 // const WS_PORT = process.env.WS_PORT;
 
 const app = express();
-const sslOpts = {
-	key: fs.readFileSync('./ssl/cert.key'),
-	cert: fs.readFileSync('./ssl/cert.crt')
-};
-const server = https.createServer(sslOpts, app);
+let server;
+if (process.env.USE_SSL_LOCALLY) {
+	const sslOpts = {
+		key: fs.readFileSync('./ssl/cert.key'),
+		cert: fs.readFileSync('./ssl/cert.crt')
+	};
+
+	server = https.createServer(sslOpts, app);
+} else {
+	server = http.createServer(app);
+}
 
 
 // set up session
