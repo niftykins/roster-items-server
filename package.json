@@ -27,6 +27,8 @@
   },
   "private": true,
   "devDependencies": {
+  },
+  "dependencies": {
     "babel-eslint": "~7.1.1",
     "babel-loader": "~6.4.1",
     "concurrently": "~3.5.0",
@@ -38,9 +40,7 @@
     "style-loader": "~0.14.1",
     "stylus": "~0.54.5",
     "webpack": "~2.6.1",
-    "webpack-dev-server": "~2.4.5"
-  },
-  "dependencies": {
+    "webpack-dev-server": "~2.4.5",
     "babel-cli": "~6.24.0",
     "babel-core": "~6.24.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
