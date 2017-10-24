@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/api/index.js",
+    "production": "node dist/api/index.js",
     "dev": "concurrently -k -p \"[{name}]\" -n \"client,server\" -c \"yellow,cyan\" \"npm run serve:client\" \"npm run serve:server\"",
     "build": "rimraf dist/ && npm run build:server && npm run build:client",
     "postinstall": "NODE_ENV=production npm run build",
