@@ -65,6 +65,12 @@ app.get('/test', (req, res) => {
 	res.json({ok: true});
 });
 
+if (process.env.LETS_ENCRYPT_URL) {
+	app.get(process.env.LETS_ENCRYPT_URL, (req, res) => {
+		res.send(process.env.LETS_ENCRYPT_CONTENT);
+	});
+}
+
 server.listen(PORT, () => {
 	console.log(`API server is now running on port ${PORT}`);
 });
