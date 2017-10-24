@@ -1,0 +1,37 @@
+.picker
+	position relative
+
+	&.expanded
+		.input
+			border-color $input-active-border-colour
+			box-shadow $input-active-box-shadow
+
+	&.disabled
+		.input
+			cursor default
+			user-select text
+
+	.input
+		display flex
+		align-items center
+		justify-content space-between
+		cursor pointer
+		user-select none
+
+		i
+			color $grey
+			margin -5px 0
+
+	.menu
+		margin-top 0.25rem
+		width 100%
+		max-width 100%
+
+		.selected
+			$bold()
+
+		.child
+			padding-left 2rem !important
+
+		.heading
+			text-decoration underline

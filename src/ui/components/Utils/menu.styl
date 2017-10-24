@@ -1,0 +1,89 @@
+$border-mixin(prop)
+	&:before
+	&:after
+		{prop} 100%
+
+	&:before
+		border-{prop}-color @border-color
+
+	&:after
+		border-{prop}-color @background-color
+
+.menu
+	color $black
+	position absolute
+	border 1px solid
+	border-color $card-border-dark
+	border-radius $small-border-radius
+	width 12rem
+	background-color $white
+	z-index 20
+	box-shadow 0 0 3px $slight-black
+	user-select none
+
+	&:before
+	&:after
+		border solid transparent
+		content ' '
+		width 0
+		height 0
+		position absolute
+		pointer-events none
+
+	&:before
+		border-width 9px
+		margin-left @border-width * -1
+
+	&:after
+		border-width 8px
+		margin-left @border-width * -1
+
+	&.left
+		&:before
+		&:after
+			left 2rem
+
+	&.right
+		&:before
+			// not quite sure why this is needed
+			right calc(2rem - 1px)
+
+		&:after
+			right 2rem
+
+	&.top
+		$border-mixin(bottom)
+
+	&.bottom
+		$border-mixin(top)
+
+	.menu-content
+		$overflow-auto()
+		max-height 15rem
+		padding 0.65rem 0
+
+		.divider
+			border-top 1px solid @border-color
+			padding-top 0.75rem !important
+			margin-top 0.75rem
+
+	.menu-content > *:not(.menu-ignore):not(.divider)
+		display block
+		padding 0.5rem
+		margin 0 0.5rem
+		cursor pointer
+		font-size 15px
+		border-radius $small-border-radius
+		transition all 50ms ease
+
+		&:hover
+			background-color $green
+			color $white
+
+		&.disabled
+			pointer-events none
+			color $grey
+			cursor initial
+
+			&:hover
+				background-color $white

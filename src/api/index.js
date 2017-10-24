@@ -1,11 +1,10 @@
 import 'isomorphic-fetch';
 
-import http from 'http';
 import https from 'https';
 import fs from 'fs';
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from 'cors';
+// import cors from 'cors';
 import session from 'express-session';
 import knexSessionStore from 'connect-session-knex';
 
@@ -28,16 +27,11 @@ const PORT = process.env.PORT;
 // const WS_PORT = process.env.WS_PORT;
 
 const app = express();
-let server;
-if (process.env.USE_SSL_LOCALLY) {
-	const sslOpts = {
-		key: fs.readFileSync('./ssl/server.key.pem'),
-		cert: fs.readFileSync('./ssl/server.crt.pem')
-	};
-	server = https.createServer(sslOpts, app);
-} else {
-	server = http.createServer(app);
-}
+const sslOpts = {
+	key: fs.readFileSync('./ssl/cert.key'),
+	cert: fs.readFileSync('./ssl/cert.crt')
+};
+const server = https.createServer(sslOpts, app);
 
 
 // set up session
@@ -53,13 +47,13 @@ app.use(sessionParser);
 
 
 // set up cors
-app.use(cors({
-	allowedHeaders: ['Accept', 'Content-Type', 'Origin', 'X-CSRF'],
-	methods: ['GET', 'PUT', 'POST', 'DELETE'],
-	origin: [/guildsy\.com.*/, /guildsy\.io.*/],
-	credentials: true,
-	maxAge: 3600
-}));
+// app.use(cors({
+// 	allowedHeaders: ['Accept', 'Content-Type', 'Origin', 'X-CSRF'],
+// 	methods: ['GET', 'PUT', 'POST', 'DELETE'],
+// 	origin: [/guildsy\.com.*/, /guildsy\.io.*/],
+// 	credentials: true,
+// 	maxAge: 3600
+// }));
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -72,8 +66,7 @@ app.get('/test', (req, res) => {
 });
 
 server.listen(PORT, () => {
-	const ssl = process.env.USE_SSL_LOCALLY ? ' using SSL' : '';
-	console.log(`API server is now running on port ${PORT}${ssl}`);
+	console.log(`API server is now running on port ${PORT}`);
 });
 
 

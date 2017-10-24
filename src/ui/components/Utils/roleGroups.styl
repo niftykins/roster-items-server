@@ -1,0 +1,46 @@
+.role-groups
+	display flex
+	flex-direction row
+	flex-wrap wrap
+	justify-content space-between
+	margin -0.25rem
+
+	&.disabled
+		.class
+			cursor default
+
+		i:not(.toggled)
+			opacity 0.1
+
+	.role-group
+		margin 0.25rem
+
+	.role-label
+		$bold()
+		text-transform capitalize
+		margin-bottom 0.5rem
+		font-size 1rem
+
+	.class
+		position relative
+		display table
+		flex-direction row
+		align-items center
+		font-size 0.95rem
+		margin-bottom 0.25rem
+		cursor pointer
+		padding 0.25rem 0
+		user-select none
+
+		i
+			position absolute
+			top 1px
+			left -2px
+
+			&.toggled
+				color $blue
+
+		span
+			padding 0.15rem 0.25rem
+			border-radius $small-border-radius
+			margin-left 1.25rem

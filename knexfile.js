@@ -1,7 +1,7 @@
 // since knex always runs this file first, all of our seeds and migrations are babelified
 require('babel-register');
 
-require('./src/dotenv');
+require('./src/api/dotenv');
 
 module.exports = {
 	development: {

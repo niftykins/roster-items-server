@@ -1,0 +1,84 @@
+.standard-view
+	display flex
+	flex 1 1 auto
+	flex-direction row
+
+	.view-list-container
+		display flex
+		flex-direction column
+		flex-shrink 0
+		width 18rem
+		border-right 1px solid $card-border-dark
+		background-color $white
+
+	.view-list
+		$overflow-auto()
+		flex 1 1 auto
+
+	.view-list-item
+		display block
+		padding 1rem 1.5rem
+		cursor pointer
+
+		&:hover
+			background-color $grey-lighter
+
+		&.active .name
+		&.active.add-new
+			color $blue
+
+		&.add-new
+			text-decoration underline
+
+		.name
+			$bold()
+
+	& > .loader
+		align-self center
+		width 100%
+		text-align center
+
+.standard-view > .view-details-container
+	display flex
+	flex 1 1 auto
+	flex-direction row
+
+	.view-right-panel
+		background-color $white
+		flex-shrink 0
+		width 18rem
+		border-left 1px solid $card-border-dark
+
+.standard-view > .view-details-container > .view-details-inner
+	$overflow-auto()
+	display flex
+	flex 1 1 auto
+	flex-direction column
+
+	.view-details
+		flex 1 1 auto
+		margin 0 auto
+		padding 1.5rem 1.5rem 1rem
+		max-width 45rem
+		width 100%
+
+	.view-actions-bar
+		display flex
+		flex-shrink 0
+		justify-content flex-end
+		flex-direction row
+		align-items center
+		padding 1rem
+		border-top 1px solid $card-border-dark
+		background-color $white
+
+		.button-group
+			margin 0
+			width 100%
+			text-align right
+
+		.button
+			width 8rem
+
+			&.left
+				float left

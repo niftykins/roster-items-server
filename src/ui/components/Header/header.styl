@@ -1,0 +1,46 @@
+.header-nav
+	position relative
+	display flex
+	flex-shrink 0
+	justify-content space-between
+	align-items center
+	z-index 1
+	height 4.25rem
+	padding 1rem 1.2rem
+	background-color $white
+	box-shadow 0 1px 4px $slight-black
+
+	.brand
+		display flex
+		align-items center
+
+		img
+			height 2.5rem
+			width auto
+			margin-right 0.5rem
+
+		.name
+			$bold()
+			font-size 1.75rem
+			color $black-full
+
+	.links
+		display flex
+		flex-direction row
+
+		a, div
+			$bold()
+			cursor pointer
+			display block
+			user-select none
+			padding 0.45rem 0.75rem 0.4rem
+			line-height 1.5rem
+			color $black-dark
+
+			&:hover
+				text-decoration underline
+
+			&.active
+				background-color $grey-background
+				text-decoration none
+				border-radius $border-radius

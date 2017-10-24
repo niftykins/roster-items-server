@@ -106,7 +106,7 @@ export default function setupSocket(server, sessionParser) {
 	ws = new SocketServer({
 		perMessageDeflate: false,
 		clientTracking: true,
-		path: '/ws',
+		path: '/api/ws',
 
 		verifyClient,
 		server

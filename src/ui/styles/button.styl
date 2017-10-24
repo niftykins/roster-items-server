@@ -1,0 +1,129 @@
+.button-group
+	margin-top 1rem
+	text-align left
+
+	.button
+		display inline-block
+		margin-right 0.5rem
+
+		&:last-child
+			margin-right 0
+
+.button
+	$font-family()
+	$bold()
+	user-select none
+	position relative
+	display table
+	padding 0.5rem 1rem
+	outline 0
+	border none
+	border-radius $small-border-radius
+	color $black
+	text-align center
+	text-decoration none
+	text-shadow 0 1px 1px $slight-black
+	white-space nowrap
+	font-style normal
+	font-size 16px
+	line-height 1.2
+	cursor pointer
+
+	&:hover
+	&:focus
+		box-shadow inset 0 -2px rgba(0, 0, 0, 0.25)
+
+	&:active
+		box-shadow inset 0 2px 1px rgba(0, 0, 0, 0.2) !important
+
+	&:after
+		position absolute
+		top 0
+		right 0
+		bottom 0
+		left 0
+		border-radius @border-radius
+		content ''
+
+	&.right
+		float right
+
+	&.small
+		padding 5px 10px
+		font-size 14px
+
+	&.medium
+		padding 0.625rem 1.25rem
+		border-radius $border-radius
+		font-size 18px
+
+	&.large
+		$super-bold()
+		padding 0.75rem 1.5rem
+		border-radius $border-radius
+		font-size 20px
+
+	&.fluid
+		width 100%
+
+	&.green
+		background-color $green
+		color $white
+
+	&.blue
+		background-color $blue
+		color $white
+
+	&.red
+		background-color $red
+		color $white
+
+	&.link
+		text-shadow none
+
+		&:active
+		&:hover
+		&:focus
+			box-shadow none !important
+
+	&.outline:not(.disabled)
+		background-color $grey-lighter
+		text-shadow none
+
+		&:after
+			border 1px solid $grey-light
+
+		&:hover
+		&:focus
+			background-color $white
+			box-shadow none
+
+		&.red
+			color $red
+
+			&:after
+				border-color $red
+
+		&.blue
+			color $blue
+
+			&:after
+				border-color $blue
+
+		&.green
+			color $red
+
+			&:after
+				border-color $red
+
+	&.disabled
+		background-color $grey
+		color $white
+		opacity 0.35
+		pointer-events none
+
+	i
+		position relative
+		top 1px
+		margin-right 0.5rem
+		font-size 13px

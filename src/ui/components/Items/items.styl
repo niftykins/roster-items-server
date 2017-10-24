@@ -1,0 +1,30 @@
+.items-view .view-list-container
+	.search
+		flex-shrink 0
+
+	.search .input
+		border none
+		border-bottom 1px solid $card-border
+		border-radius 0
+		padding 1rem 1.5rem
+
+		&:active
+		&:focus
+			box-shadow none
+			border-color $input-active-border-colour
+
+
+.items-view .view-right-panel
+	.button-group
+		padding-bottom 0.45rem
+		margin @padding-bottom 0.75rem
+		border-bottom 1px solid $card-border
+
+		&:first-child
+			margin-top 1rem
+
+		&:last-child
+			border-bottom none
+
+		.button
+			margin 0.25rem

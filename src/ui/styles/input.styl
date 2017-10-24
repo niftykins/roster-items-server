@@ -1,0 +1,126 @@
+$small-input-padding = 0.25rem 0.45rem
+$small-font-size = 14px
+
+$input-padding = 0.5rem 0.75rem
+$input-font-size = 16px
+
+$medium-input-padding = 0.65rem 0.75rem
+$medium-input-font-size = 18px
+
+$big-input-padding = 0.85rem 0.75rem
+$big-input-font-size = 20px
+
+$input-active-border-colour = $green
+$input-active-box-shadow = 0 0 7px rgba(39, 128, 248, 0.15)
+
+
+.input-group
+	margin-bottom 1rem
+
+	&:last-of-type
+		margin-bottom 0
+
+	&.disabled
+		.input
+			padding 0
+			border none
+			white-space pre-wrap
+
+			&:active
+			&:focus
+				box-shadow none
+
+	label
+		$bold()
+		display block
+		margin-bottom 0.5rem
+		font-size 1rem
+
+		.hint
+			color $grey
+			font-weight 400
+
+	.note
+		margin-top 0.25rem
+		color $grey
+		font-size 0.8rem
+		line-height 1rem
+
+	.input-child-wrapper.with-action-button
+		display flex
+		flex-direction row
+		align-items center
+
+		.button
+			margin-left 0.5rem
+
+textarea.input
+	min-height 4.5rem
+
+.input
+	$font-family()
+	appearance none
+	margin 0
+	padding $input-padding
+	max-width 100%
+	width 100%
+	height auto
+	outline 0
+	border 1px solid $grey-light
+	border-radius $small-border-radius
+	box-shadow none
+	color $black
+	font-size $input-font-size
+	line-height 1.2
+	transition box-shadow 70ms ease-out, border-color 70ms ease-out
+
+	&:active
+	&:focus
+		border-color $input-active-border-colour
+		box-shadow $input-active-box-shadow
+
+	&.small
+		padding $small-input-padding
+		font-size $small-font-size
+
+	&.medium
+		padding $medium-input-padding
+		font-size $medium-input-font-size
+
+	&.big
+		padding $big-input-padding
+		font-size $big-input-font-size
+
+		& ~ .search-icon
+			top 12px
+			font-size 28px
+
+		& ~ .clear-icon
+			top 14px
+			font-size 24px
+
+	&.uneditable
+		padding 0
+		border none
+
+.search-input
+	position relative
+
+	.input
+		padding-right 2.5rem
+		padding-left 2.5rem
+
+	i
+		position absolute
+		color $grey
+
+	.search-icon
+		top 7px
+		left 10px
+
+	.clear-icon
+		top 8px
+		right 10px
+		transform rotate(45deg)
+		font-size 20px
+		cursor pointer

@@ -1,5 +1,11 @@
-open server.crt.pem with Keychain Access and add it to your login
+open `.crt` with Keychain Access and add it to your login
 
 find the certificate for local.guildsy.io and go to info, change the default action to Always Trust
 
 now the browser will accept it
+
+
+```
+openssl genrsa -out cert.key 2048 -nodes
+openssl req -new -x509 -key cert.key -sha256 -config config.cnf -out cert.crt -days 730 -subj "/C=AU/ST=private/L=province/O=city/CN=local.guildsy.io"
+```

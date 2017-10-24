@@ -7,72 +7,32 @@ import Users from './models/users';
 // const BNET_OAUTH_URL = 'https://us.battle.net/oauth';
 
 function makeClientUrl(path = '/') {
-	return `${process.env.UI_URL}${path}`;
+	let url = process.env.UI_URL;
+
+	if (process.env.UI_PORT) url = `${url}:${process.env.UI_PORT}`;
+	return `${url}${path}`;
 }
 
 export default function setupBlizzardOAuth(app) {
 	app.use(passport.initialize());
 	app.use(passport.session());
 
-	app.get('/auth/bnet', passport.authenticate('bnet'));
+	app.get('/api/auth/bnet', passport.authenticate('bnet'));
 
-	app.get('/auth/bnet/callback',
+	app.get('/api/auth/bnet/callback',
 		passport.authenticate('bnet', {
 			failureRedirect: makeClientUrl('/sign-in?error=1'),
 			successRedirect: makeClientUrl('/')
 		}));
 
-	app.get('/auth/logout', (req, res) => {
+	app.get('/api/auth/logout', (req, res) => {
 		req.logout();
 		res.json({ok: true});
 	});
-
-	// app.get('/auth2/bnet', (req, res) => {
-	// 	const qs = querystring.stringify({
-	// 		redirect_uri: `${process.env.API_URL}/auth2/bnet/auth`,
-	// 		client_id: process.env.BNET_ID,
-	// 		response_type: 'code',
-	// 		scope: 'wow.profile sc2.profile',
-	// 		state: 'batman'
-	// 	});
-
-	// 	const url = `${BNET_OAUTH_URL}/authorize?${qs}`;
-	// 	console.log('url', url);
-
-	// 	res.redirect(302, url);
-	// });
-
-	// app.get('/auth2/bnet/auth', (req, res) => {
-	// 	console.log(req.query);
-	// 	// XXX check req.query.state
-
-	// 	if (req.query.error) {
-	// 		console.log('ERROR');
-	// 		res.end();
-	// 		return;
-	// 	}
-
-	// 	const qs = querystring.stringify({
-	// 		redirect_uri: `${process.env.API_URL}/auth2/bnet/auth`,
-	// 		scope: 'wow.profile',
-	// 		grant_type: 'authorization_code',
-	// 		code: req.query.code,
-	// 		client_id: process.env.BNET_ID,
-	// 		client_secret: process.env.BNET_SECRET
-	// 	});
-
-	// 	fetch(`${BNET_OAUTH_URL}/token?${qs}`, {
-	// 		method: 'POST',
-	// 	})
-	// 		.then((r) => r.json())
-	// 		.then((r) => console.log(r));
-
-	// 	res.end();
-	// });
 }
 
 const bnetOptions = {
-	callbackURL: '/auth/bnet/callback',
+	callbackURL: '/api/auth/bnet/callback',
 	clientSecret: process.env.BNET_SECRET,
 	clientID: process.env.BNET_ID,
 	scope: ['wow.profile'],
@@ -107,6 +67,6 @@ passport.deserializeUser(async (userId, done) => {
 
 		done(null, user);
 	} catch (e) {
-		done(e, false);
+		done(e);
 	}
 });

@@ -1,34 +1,49 @@
 {
 	"parser": "babel-eslint",
 	"parserOptions": {
-		"sourceType": "module"
+		"sourceType": "module",
+
+		"ecmaFeatures": {
+			"ecmaVersion": 8,
+			"jsx": true
+		}
+	},
+
+	"ecmaFeatures": {
+		"jsx": true
 	},
 
 	"extends": "airbnb-base",
 
-	"env": {
-		"node": true,
-		"es6": true
-	},
+	"plugins": [
+		"react"
+	],
 
 	"globals": {
 		"fetch": true
 	},
 
-	"rules": {
-		"no-tabs": "off",
-		"no-console": "off",
-		"comma-dangle": ["error", "never"],
-		"object-curly-spacing": ["error", "never"],
-		// "consistent-return": "off",
-		"class-methods-use-this": "off",
-		"arrow-body-style": "off",
-		"arrow-parens": ["error", "always"],
-		"space-before-function-paren": ["error", "never"],
-		"no-cond-assign": ["error", "except-parens"],
-		"no-mixed-operators": ["error", {"allowSamePrecedence": true}],
+	"env": {
+		"browser": true,
+		"node": true,
+		"es6": true
+	},
 
-		// "max-len": ["off", 120, 2, {
+	"rules": {
+		"no-tabs": 0,
+		"no-console": 0,
+		"comma-dangle": [2, "never"],
+		"object-curly-spacing": [2, "never"],
+		// "consistent-return": 0,
+		"arrow-body-style": 0,
+		"arrow-parens": [2, "always"],
+		"space-before-function-paren": [2, "never"],
+		"no-cond-assign": [2, "except-parens"],
+		"no-mixed-operators": [2, {"allowSamePrecedence": true}],
+		"indent": [2, "tab", {"SwitchCase": 1}],
+		"class-methods-use-this": 0,
+
+		// "max-len": [0, 120, 2, {
 		//   "ignoreUrls": true,
 		//   "ignoreComments": false,
 		//   "ignoreRegExpLiterals": true,
@@ -37,18 +52,98 @@
 		// }],
 
 		// meteor has a lot of these
-		"no-underscore-dangle": "off",
+		"no-underscore-dangle": 0,
 
 		// ignore for now
-		"indent": ["error", "tab", {"SwitchCase": 1}],
+		"indent": [2, "tab", {"SwitchCase": 1}],
+
 
 		// import
-		// "import/no-extraneous-dependencies": "off",
-		"import/prefer-default-export": "off",
-		"import/newline-after-import": "off",
-		// "import/no-absolute-path": "off",
-		// "import/extensions": "off",
-		"import/named": "error",
-		"import/first": "off"
+		// "import/no-extraneous-dependencies": 0,
+		"import/prefer-default-export": 0,
+		"import/newline-after-import": 0,
+		// "import/no-absolute-path": 0,
+		// "import/extensions": 0,
+		"import/named": 2,
+		"import/first": 0,
+
+
+		// jsx
+		"react/display-name": [2, {"ignoreTranspilerName": false}],
+		"react/jsx-boolean-value": [2, "always"],
+		"react/jsx-closing-bracket-location": [2, "tag-aligned"],
+		"react/jsx-handler-names": [2, {
+			"eventHandlerPrefix": "handle",
+			"eventHandlerPropPrefix": "on"
+		}],
+		"react/jsx-indent-props": [2, "tab"],
+		"react/jsx-key": 2,
+		"react/jsx-max-props-per-line": [2, {"maximum": 2}],
+		"react/jsx-no-duplicate-props": [2, {"ignoreCase": true}],
+		"react/jsx-no-undef": 2,
+		"react/jsx-uses-react": 2,
+		"react/jsx-uses-vars": 2,
+		"react/no-danger": 2,
+		"react/no-deprecated": 2,
+		"react/no-did-mount-set-state": 2,
+		"react/no-did-update-set-state": 2,
+		"react/no-direct-mutation-state": 2,
+		"react/no-is-mounted": 2,
+		"react/no-string-refs": 2,
+		"react/no-unknown-property": 2,
+		"react/prefer-es6-class": [2, "always"],
+		"react/prefer-stateless-function": 2,
+		"react/prop-types": [2, {"skipUndeclared": true}],
+		"react/require-render-return": 2,
+		"react/self-closing-comp": 2,
+		"react/jsx-space-before-closing": [2, "always"],
+		"react/sort-comp": [2, {
+			"order": [
+				"static-methods",
+				"displayName",
+				"propTypes",
+				"contextTypes",
+				"childContextTypes",
+				"mixins",
+				"statics",
+				"defaultProps",
+				"state",
+				"/^_.+$/",
+				"getDefaultProps",
+				"getInitialState",
+				"getMeteorData",
+				"getChildContext",
+				"constructor",
+				"componentWillMount",
+				"componentDidMount",
+				"componentWillReceiveProps",
+				"shouldComponentUpdate",
+				"componentWillUpdate",
+				"componentDidUpdate",
+				"componentWillUnmount",
+				"everything-else",
+				"/^on.+$/",
+				"/^handle+$/",
+				"/^render.+$/",
+				"render"
+			]
+		}],
+		"react/jsx-wrap-multilines": 2,
+		"react/jsx-first-prop-new-line": [2, "multiline"],
+		"react/jsx-equals-spacing": [2, "never"],
+		"react/jsx-indent": [2, "tab"],
+		"react/jsx-no-target-blank": 2,
+		"react/jsx-no-comment-textnodes": 2,
+		"react/no-render-return-value": 2,
+		"react/no-find-dom-node": 2,
+		"react/no-danger-with-children": 2,
+		"react/no-unused-prop-types": [2, {"skipShapeProps": true}],
+		"react/style-prop-object": 2,
+		// "react/no-unescaped-entities": 2,
+		"react/jsx-tag-spacing": [2, {
+			"closingSlash": "never",
+			"beforeSelfClosing": "always",
+			"afterOpening": "never"
+		}]
 	}
 }
