@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently -k -p \"[{name}]\" -n \"client,server\" -c \"yellow,cyan\" \"npm run serve:client\" \"npm run serve:server\"",
+    "start": "node dist/api/index.js",
+    "dev": "concurrently -k -p \"[{name}]\" -n \"client,server\" -c \"yellow,cyan\" \"npm run serve:client\" \"npm run serve:server\"",
+    "build": "rimraf dist/ && npm run build:server && npm run build:client",
+    "postinstall": "NODE_ENV=production npm run build",
     "pg-start": "pg_ctl -D /usr/local/var/postgres start",
     "pg-stop": "pg_ctl -D /usr/local/var/postgres stop",
     "migrate": "knex --knexfile ./knexfile.js --cwd . migrate:latest",
@@ -12,8 +15,10 @@
     "seed": "knex seed:run",
     "lint:client": "eslint src/ui",
     "serve:client": "webpack-dev-server --config=webpack.config.js",
+    "build:client": "webpack -p --config=webpack.config.js",
     "lint:server": "eslint src/api migrations seeds",
     "serve:server": "nodemon src/api/index.js --watch src/api --exec babel-node",
+    "build:server": "babel src/api -d dist/api",
     "lint": "npm run lint:client && npm run lint:server"
   },
   "engines": {
@@ -76,6 +81,7 @@
     "redux": "~3.6.0",
     "redux-logger": "~2.8.2",
     "redux-thunk": "~2.2.0",
+    "rimraf": "^2.6.2",
     "stylus-loader": "~3.0.0",
     "utf-8-validate": "~3.0.1",
     "ws": "~2.2.1",

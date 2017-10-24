@@ -4,3 +4,4 @@ node_modules
 dev.sqlite3
 api/.sessions
 .env
+dist

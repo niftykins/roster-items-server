@@ -1,10 +1,12 @@
+import 'babel-polyfill';
+
 import 'isomorphic-fetch';
 
+import path from 'path';
 import https from 'https';
 import fs from 'fs';
 import express from 'express';
 import bodyParser from 'body-parser';
-// import cors from 'cors';
 import session from 'express-session';
 import knexSessionStore from 'connect-session-knex';
 
@@ -46,18 +48,27 @@ const sessionParser = session({
 app.use(sessionParser);
 
 
-// set up cors
-// app.use(cors({
-// 	allowedHeaders: ['Accept', 'Content-Type', 'Origin', 'X-CSRF'],
-// 	methods: ['GET', 'PUT', 'POST', 'DELETE'],
-// 	origin: [/guildsy\.com.*/, /guildsy\.io.*/],
-// 	credentials: true,
-// 	maxAge: 3600
-// }));
+if (process.env.USE_REDIRECTS) {
+	app.use((req, res, next) => {
+		if (req.hostname === 'localhost') return next();
+		if (req.hostname.includes('herokuapp')) {
+			let url = process.env.URL;
+			if (process.env.UI_PORT) url = `${url}:${process.env.UI_PORT}`;
+
+			return res.redirect(url);
+		}
+
+		if (req.secure || req.headers['x-forwarded-proto'] === 'https') return next();
+
+		res.redirect(`https://${req.hostname}${req.originalUrl}`);
+		return null;
+	});
+}
 
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
 
 app.get('/test', (req, res) => {
 	console.log(req.headers.cookie);
@@ -71,11 +82,17 @@ if (process.env.LETS_ENCRYPT_URL) {
 	});
 }
 
-server.listen(PORT, () => {
-	console.log(`API server is now running on port ${PORT}`);
-});
-
 
 // set up all the other handlers
 setupBlizzardOAuth(app);
 setupSocket(server, sessionParser);
+
+
+const ui = path.join(__dirname, '..', 'ui');
+app.use('/', express.static(ui));
+app.get('/*', (req, res) => res.sendFile(path.join(ui, 'index.html')));
+
+server.listen(PORT, () => {
+	console.log(`API server is now running on port ${PORT}`);
+});
+
