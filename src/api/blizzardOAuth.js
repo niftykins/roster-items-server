@@ -13,6 +13,13 @@ function makeClientUrl(path = '/') {
 	return `${url}${path}`;
 }
 
+function makeAPIUrl(path = '/') {
+	let url = process.env.URL;
+
+	if (process.env.PORT) url = `${url}:${process.env.PORT}`;
+	return `${url}${path}`;
+}
+
 export default function setupBlizzardOAuth(app) {
 	app.use(passport.initialize());
 	app.use(passport.session());
@@ -32,7 +39,7 @@ export default function setupBlizzardOAuth(app) {
 }
 
 const bnetOptions = {
-	callbackURL: '/api/auth/bnet/callback',
+	callbackURL: makeAPIUrl('/api/auth/bnet/callback'),
 	clientSecret: process.env.BNET_SECRET,
 	clientID: process.env.BNET_ID,
 	scope: ['wow.profile'],
