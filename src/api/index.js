@@ -84,7 +84,8 @@ app.get('/test', (req, res) => {
 });
 
 if (process.env.LETS_ENCRYPT_URL) {
-	app.get(process.env.LETS_ENCRYPT_URL, (req, res) => {
+	app.get(`/.well-known/acme-challenge/${process.env.LETS_ENCRYPT_URL}`, (req, res) => {
+		res.set('Content-Disposition', `attachment; filename="${process.env.LETS_ENCRYPT_UR}"`);
 		res.send(process.env.LETS_ENCRYPT_CONTENT);
 	});
 }
