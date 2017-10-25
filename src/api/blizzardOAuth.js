@@ -6,18 +6,8 @@ import Users from './models/users';
 
 // const BNET_OAUTH_URL = 'https://us.battle.net/oauth';
 
-function makeClientUrl(path = '/') {
-	let url = process.env.URL;
-
-	if (process.env.UI_PORT) url = `${url}:${process.env.UI_PORT}`;
-	return `${url}${path}`;
-}
-
-function makeAPIUrl(path = '/') {
-	let url = process.env.URL;
-
-	if (process.env.PORT) url = `${url}:${process.env.PORT}`;
-	return `${url}${path}`;
+function makeUrl(path = '/') {
+	return `${process.env.URL}${path}`;
 }
 
 export default function setupBlizzardOAuth(app) {
@@ -28,8 +18,8 @@ export default function setupBlizzardOAuth(app) {
 
 	app.get('/api/auth/bnet/callback',
 		passport.authenticate('bnet', {
-			failureRedirect: makeClientUrl('/sign-in?error=1'),
-			successRedirect: makeClientUrl('/')
+			failureRedirect: makeUrl('/sign-in?error=1'),
+			successRedirect: makeUrl('/')
 		}));
 
 	app.get('/api/auth/logout', (req, res) => {
@@ -39,7 +29,7 @@ export default function setupBlizzardOAuth(app) {
 }
 
 const bnetOptions = {
-	callbackURL: makeAPIUrl('/api/auth/bnet/callback'),
+	callbackURL: makeUrl('/api/auth/bnet/callback'),
 	clientSecret: process.env.BNET_SECRET,
 	clientID: process.env.BNET_ID,
 	scope: ['wow.profile'],
