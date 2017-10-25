@@ -7,7 +7,7 @@ import Users from './models/users';
 // const BNET_OAUTH_URL = 'https://us.battle.net/oauth';
 
 function makeClientUrl(path = '/') {
-	let url = process.env.UI_URL;
+	let url = process.env.URL;
 
 	if (process.env.UI_PORT) url = `${url}:${process.env.UI_PORT}`;
 	return `${url}${path}`;
